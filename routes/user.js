@@ -63,4 +63,4 @@ router.get("/:id", (req,res) => {
 
 
 module.exports = router
-client.login(process.env.token2)
+client.login(process.env.token)

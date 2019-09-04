@@ -72,7 +72,7 @@ module.exports = {
                                             })
                                             let embed = new discord.RichEmbed()
                                             .setTitle("Join Request")
-                                            .setDescription(`${msg.author.username} send you a team invite to ${team.name}\n\nTo accept invite click this link \n\n[Invite Link](${process.env.endpoint}/team/${team.id}/invite/${token}) \n\n Click the link or use wb!acceptinvite ${process.env.endpoint}/team/${team.id}/invite/${token}`)
+                                            .setDescription(`${msg.author.username} send you a team invite to ${team.name}\n\nTo accept invite use the command wb!acceptinvite ${token}`)
                                             DUser.send(embed).catch(err => msg.channel.send("Couldn't send the invite"))
                                             team.pendingMembers.push(Invite)
                                             newUser.save()
@@ -92,7 +92,7 @@ module.exports = {
                                                 }
                                                 let embed = new discord.RichEmbed()
                                                 .setTitle("Join Request")
-                                                .setDescription(`${msg.author.username} send you a team invite to ${team.name}\n\nTo accept invite click this link \n\n[Invite Link](${process.env.endpoint}/team/${team.id}/invite/${token}) \n\n Click the link or use wb!acceptinvite ${process.env.endpoint}/team/${team.id}/invite/${token}`)
+                                                .setDescription(`${msg.author.username} send you a team invite to ${team.name}\n\nTo accept invite use the command wb!acceptinvite ${token}`)
                                                 DUser.send(embed).catch(err => msg.channel.send("Couldn't send the invite"))
                                                 team.pendingMembers.push(Invite)
                                                 user.requests.push(Invite)

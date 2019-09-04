@@ -2,7 +2,4 @@
 request.rest
 .env
 /.vscode
-test.rest
-test.js
-test.lua
-index.js
+npm-debug.log

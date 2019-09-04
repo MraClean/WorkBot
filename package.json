@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "sudo node app.js"
   },
   "author": "",
   "license": "ISC",
@@ -15,11 +15,8 @@
     "dotenv": "^8.0.0",
     "ejs": "^2.6.2",
     "express": "^4.17.1",
-    "image-pixels": "^2.2.2",
     "mongoose": "^5.6.9",
     "nodemon": "^1.19.1",
-    "random-anime-wallpapers": "^1.1.0",
-    "sequelize": "^5.16.0",
     "unirest": "^0.6.0",
     "uuid-token-generator": "^1.0.0"
   }

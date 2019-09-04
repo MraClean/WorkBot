@@ -83,19 +83,73 @@ router.post('/newTask',(req,res) => {
 })
 
 router.post("/addWork",(req,res) => {
-    let team = req.body.team
     let id = req.body.id
     let work = req.body.work
-    if(!team || !id || !work){return res.send("Invalid Parameters")}
-    models.Team.findOne({
-        id:teamId
-    }, (err,team) => {
+    let user = req.body.user
+    if(!user || !id || !work){return res.send("Invalid Parameters")}
+    models.User.findOne({
+        id:user
+    }, (err,User) => {
         if (err){console.error(err)}
-        if(!team) {
-            res.send("No team found!")
+        if(!User) {
+            res.send("No user found!")
         }else{
-            
+            let task = User.tasks.find(x => x.id == id)
+            if(!task){
+                res.send('No task found!')
+            }else{
+                let workFolder = task.work
+                if(!workFolder){
+                    task.push({work: work})
+                }else{
+                    for (let i = 0; i < work.length; i++) {
+                        const Url = work[i];
+                        workFolder.push(Url)
+                    }        
+                }
+                res.send('Added Work!')  
+            }
         }
+        User.save()
+    })
+})
+
+router.post('/turnIn',(req,res) => {
+    let id = req.body.id
+    let user = req.body.user
+    if(!user || !id){return res.send("Invalid Parameters")}
+    models.User.findOne({
+        id:user
+    }, (err,User) => {
+        if (err){console.error(err)}
+        if(!User) {
+            res.send("No user found!")
+        }else{
+            let task = User.tasks.find(x => x.id == id)
+            if(!task){
+                res.send('No task found!')
+            }else{
+                models.Team.findOne({
+                    token:task.token
+                }, (err,Team) => {
+                    if (err){console.error(err)}
+                    if(!Team) {
+                        res.send('No team found!')
+                    }else{
+                        let teamTask  = Team.tasks.find(x => x.id == id)
+                        if(!teamTask){
+                            res.send(`Task was deleted by team, somehow wasn't on your end.`)
+                        }else{
+                            teamTask.push({work: task.work||[]})
+                            task = null // So they can't change it
+                            Team.save()
+                            User.save()
+                        }
+                    }
+                })
+            }
+        }
+        User.save()
     })
 })
 
@@ -184,44 +238,47 @@ router.get("/:team/posts/:post",(req,res) => {
     })
 })
 
-router.get("/:team/invite/:token",(req,res) => {
-    models.Team.findOne({
-        id:req.params.team
-    }, (err,team) => {
+router.post("/invite/:token",(req,res) => {
+    let token = req.params.token
+    let user = req.body.user
+    if(!token || !user){res.send("Invalid Request")}
+    models.User.findOne({
+        id:user
+    }, (err,User) => {
         if (err){console.error(err)}
-        if(!team) {
-            res.send("No team was found")
+        if(!User) {
+            res.send('No user was found\nor\nUser accepting invite is not invite receiver')
         }else{
-            let invite = team.pendingMembers.find(x => x.token == req.params.token)
-            if(!invite || invite == undefined){
-                if(invite == true){
-                    res.send("Invite already accepted")
-                }else{
-                    res.send("Invalid Invite")
-                }
+            let request = User.requests.find(x => x.token == token)
+            if(!request){
+                res.send("Invite is invalid")
             }else{
-                team.members.push(invite.user)
-                invite = {Accepted: true}
-                console.log(invite.user)
-                console.log(invite)
-                models.User.findOne({
-                    id:invite.user
-                }, (err,user) => {
+                request = null
+                user.teams.push({id:request.team})
+                models.Team.findOne({
+                    id:request.team
+                }, (err,team) => {
                     if (err){console.error(err)}
-                    if(!user) {
-                        res.send("No user found")
+                    if(!team) {
+                        res.send('Invalid team\nor\nTeam was deleted')
                     }else{
-                        let request = user.requests.find(x => x.token == req.params.token)
-                        request = {accepted:true}
-                        user.teams.push({id:team.id,name:team.name})
-                        user.save()
+                        let invite = team.requests.find(x => x.user == user) 
+                        if(!invite){
+                            res.send('Invite was expired\nor\nInvite was deleted')
+                        }else{
+                            invite = null
+                            team.members.push(user)
+                            res.send('Invite has been accepted')
+                        }
+
                     }
+                    team.save()
                 })
-                team.save()
             }
+            User.save()
         }
     })
 })
 
 module.exports = router
-client.login(process.env.token2)
+client.login(process.env.token)
