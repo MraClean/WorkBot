@@ -1,12 +1,12 @@
-const discord = require('discord.js')
-const unirest = require('unirest')
+const discord = require('discord.js');
+const unirest = require('unirest');
 
 async function fetch(url) {
     unirest
     .get(url)
     .headers({'Accept': 'application/json'})
     .then(function (response) {
-        if(response){
+        if (response && !response == undefined) {
             return Promise(response)
         }     
     })
@@ -23,14 +23,14 @@ module.exports = {
             if(res.enabled == true){
                 let embed = new discord.RichEmbed()
                 .setTitle('Server Status')
-                .setDescription('Main Server: ✅\nBackup Server: ✅\n\nRunning on `main-server`')
+                    .setDescription('Main Server: ✅\nBackup Server: ✅\n\nRunning on `main-server`');
                 msg.channel.send(embed)  
             }
         }).catch(err => {
            let embed = new discord.RichEmbed()
            .setTitle('Server Status')
-           .setDescription('Main Server: ✅\nBackup Server: ❌\n\nRunning on `main-server`')
+               .setDescription('Main Server: ✅\nBackup Server: ❌\n\nRunning on `main-server`');
            msg.channel.send(embed)
        })
     }
-}
+};

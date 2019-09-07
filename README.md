@@ -1,45 +1,50 @@
 # Work Bot
 
-## About:
+## Dbl Description:
 
-> Read the backstory idiot
+> So you can start a team with `wb!team`. 
+>
+> With this team you can now add members with `wb!addmember`.
+>
+>Now with a member in the team you can assign a task to somebody with `wb!assgin`.
+>
+>Then you put in their discord id, name of the task, description of the task, and the due date of the task.
+>
+>Once they completed the task they can use `wb!turnIn`. 
+>
+>They put in the Url of the assignment since files are not supported yet.
+>
+>The person who was assigned the assignment can no longer edit it after its turned in.
+>
+>The only people who can view it is the team as a whole.
+>
+>For somebody to view an assignment before they turn it in they use `wb!view [id]`.
+>
+>The id is gotten from using `wb!tasks`, the id is the text after the name.
+>
+>For the team to view all tasks, turned in or not they use `wb!viewAllWork` for all assignments.
+>
+>To view a specific assignment they use `wb!viewAsTeam [id]`.
+>
+>Since of the way data is stored, only people in the team can view assignments.
+>
+>This allows security and prevents people from taking the links.
+>
+>The mentioned part is only the main part of the bot. There is moderation as well. 
+>
+>Use `wb!help all` for all the commands.
 
-## Backstory:
-> Lets say your drunk one night and decide to do stupid things, thats what this is about,
+## Extras:
+
+### Preinstalled:
+> Moderation
 >
-> I, have made a bot that has some features
->
-> create team,
-> 
-> teams
->
-> view as team
->
-> add member
->
-> So this is basically a team bot
->
-> You can add people to each team and give them tasks
->
-> The person who got the task can add work to it (aka a url)
->
-> Then only viewing as a team can let you see the work
->
-> Basically heres how it works
->
-> So if your, Bob and you have a development team you want to create a team
->
-> Using create team bob does that and adds the members with add member
->
-> Then the people in the team can pass assignments to each other for things they need
->
-> The person gets the dm and does the work. They turn the work in so the rest of the team can use it
->
-> This allows assets to be shared faster
->
-> Why not use Trello
->
-> Since Im stupid and didn't think that Trello existed
+> Utility
+### Others:
+> Music
+
+> Don't question why it isn't preinstalled
+> All extras are on the bot
 
 ## Installation:
 
@@ -66,4 +71,21 @@
 >
 > If your on Linux it should be the same
 > 
-> The default is set to `sudo node app.js` so it should work correctly# WorkBot
+> The default is set to `sudo node app.js` so it should work correctly
+
+### Change Log | Expected Changes:
+> 9-3-19: Version 1.0 | First Release
+> 
+> 9-7-19: Version 1.1 | Music System
+>
+> 9-17-19: Trello Integration
+
+> Bugs are to be fixed asap
+>
+> If you find a bug report it to Soviet Issued Idiot#1273 on Discord
+
+### Credits:
+
+> [MraClean]('https://github.com/MraClean')
+>
+> Aka Soviet Issued Idiot#1273

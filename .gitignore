@@ -3,3 +3,5 @@ request.rest
 .env
 /.vscode
 npm-debug.log
+user-example.json
+team-example.json

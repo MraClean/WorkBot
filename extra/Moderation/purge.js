@@ -4,7 +4,9 @@ module.exports = {
     description: "Purge messages from a channel",
     type: "guild",
     runCommand(args, msg, client, rest = {}) {
-        if(!me.hasPermissions('MANAGE_MESSAGES')){
+        let guild = msg.guild;
+        let me = guild.me;
+        if (!me.hasPermission('MANAGE_MESSAGES')) {
             return msg.channel.send(`The bot can't do this`)
         }
         if (!msg.member.hasPermission("MANAGE_MESSAGES")) {
@@ -25,4 +27,4 @@ module.exports = {
             msg.channel.send(`I can't purge anymore`)
         })
     }
-}
+};
